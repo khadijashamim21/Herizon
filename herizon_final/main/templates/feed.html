@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="feed-section">
+  <div class="feed-header">
+    <h2>🔥 Trending Posts</h2>
+  </div>
+
+  <div class="feed-grid">
+    {% for post in trending_posts %}
+      <div class="post-card">
+        <div class="post-header">
+          <h3>{{ post.author.username }}
+            {% if post.author.userprofile.verified %}
+              <span class="badge">🌸 Verified</span>
+            {% endif %}
+          </h3>
+          <small>{{ post.created_at|date:"M d, Y" }}</small>
+        </div>
+        <p class="post-content">{{ post.content }}</p>
+        <div class="post-footer">
+          <span class="category-tag">{{ post.category|title }}</span>
+          <button class="like-btn" data-id="{{ post.id }}">❤️ {{ post.likes.count }}</button>
+          <button class="comment-btn" data-id="{{ post.id }}">💬 {{ post.comments.count }}</button>
+        </div>
+      </div>
+    {% empty %}
+      <p>No trending posts yet 💭</p>
+    {% endfor %}
+  </div>
+
+  <div class="feed-header" style="margin-top:40px;">
+    <h2>🌸 All Posts</h2>
+  </div>
+
+  <div class="feed-grid">
+    {% for post in posts %}
+      <div class="post-card">
+        <div class="post-header">
+          <h3>{{ post.author.username }}
+            {% if post.author.userprofile.verified %}
+              <span class="badge">🌸 Verified</span>
+            {% endif %}
+          </h3>
+          <small>{{ post.created_at|date:"M d, Y" }}</small>
+        </div>
+        <p class="post-content">{{ post.content }}</p>
+        <div class="post-footer">
+          <span class="category-tag">{{ post.category|title }}</span>
+          <button class="like-btn" data-id="{{ post.id }}">❤️ {{ post.likes.count }}</button>
+          <button class="comment-btn" data-id="{{ post.id }}">💬 {{ post.comments.count }}</button>
+        </div>
+      </div>
+    {% empty %}
+      <p>No posts yet 💭</p>
+    {% endfor %}
+  </div>
+</section>
+
+<script>
+  // AJAX placeholder for future interactivity
+  document.querySelectorAll('.like-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const postId = btn.dataset.id;
+      const response = await fetch(`/like/${postId}/`);
+      if (response.ok) {
+        const data = await response.json();
+        btn.innerHTML = `❤️ ${data.likes}`;
+      }
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="jobs-section">
+  <div class="jobs-header">
+    <h2>💼 Job Opportunities for Women</h2>
+    <p>Discover career openings, internships, and freelance work curated for women professionals.</p>
+  </div>
+
+  <div class="feed-grid">
+    {% for job in jobs %}
+      <div class="job-card">
+        <img src="{{ job.image_url|default:'https://cdn.pixabay.com/photo/2016/11/29/05/08/laptop-1867759_1280.jpg' }}" alt="{{ job.title }}">
+        <div class="job-info">
+          <h3>{{ job.title }}</h3>
+          <p class="company">{{ job.company }} • {{ job.location }}</p>
+          <p class="desc">{{ job.description|truncatechars:120 }}</p>
+          <div class="job-actions">
+            <a href="{{ job.link }}" target="_blank" class="btn-apply">Apply Now</a>
+            <a href="{% url 'save_job' job.id %}" class="btn save">💾 Save</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p class="no-jobs">No job listings yet 🌱</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

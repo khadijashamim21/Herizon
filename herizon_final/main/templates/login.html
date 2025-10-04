@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Herizon | Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .login-card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2.5rem 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .login-card h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #d63384;
+    }
+
+    .login-card h2 {
+      margin-bottom: 1rem;
+      color: #333;
+      font-weight: 500;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      background: linear-gradient(135deg, #f78fb3, #d63384);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #d63384, #a81d6f);
+      transform: scale(1.03);
+    }
+
+    a {
+      color: #d63384;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <h1>🌷 Herizon</h1>
+    <form method="POST">
+      {% csrf_token %}
+      {% if error %}
+        <p style="color:red">{{ error }}</p>
+      {% endif %}
+      <h2>Login</h2>
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+      <p>New here? <a href="{% url 'signup' %}">Create an Account</a></p>
+    </form>
+  </div>
+</body>
+</html>

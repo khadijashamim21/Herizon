@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="create-post-container">
+    <h2>🌸 Create a New Post</h2>
+    <p class="subtitle">Share a job opportunity, study material, or community update with other women.</p>
+
+    <form method="POST" enctype="multipart/form-data" class="post-form">
+        {% csrf_token %}
+
+        <label for="content">Post Content</label>
+        <textarea name="content" id="content" placeholder="Write your post here..." rows="4" required></textarea>
+
+        <label for="category">Select Category</label>
+        <select name="category" id="category" required>
+            <option value="">--Choose a category--</option>
+            <option value="job">💼 Job</option>
+            <option value="material">📚 Material</option>
+            <option value="update">📰 Update</option>
+        </select>
+
+        <!-- Optional future file upload -->
+        <!-- <label for="image">Add Image (optional)</label>
+        <input type="file" name="image" id="image" accept="image/*"> -->
+
+        <button type="submit" class="btn-primary">Post ✨</button>
+    </form>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+{% endblock %}

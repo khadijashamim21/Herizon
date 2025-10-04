@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Herizon | Learning Materials</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      min-height: 100vh;
+      backdrop-filter: blur(3px);
+      color: #333;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(6px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      color: #d63384;
+      font-size: 1.8rem;
+      margin: 0;
+    }
+
+    nav a {
+      margin-left: 1rem;
+      text-decoration: none;
+      color: #444;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #d63384;
+    }
+
+    .feed {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .material {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .material:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .material h3 {
+      color: #d63384;
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .material p {
+      margin: 0.5rem 0 1rem;
+      color: #555;
+      font-size: 0.95rem;
+      min-height: 50px;
+    }
+
+    .material a {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      margin-right: 0.5rem;
+      border-radius: 8px;
+      font-weight: 500;
+      text-decoration: none;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .material a:first-child {
+      background: linear-gradient(135deg, #d63384, #a81d6f);
+    }
+
+    .material a.save {
+      background: linear-gradient(135deg, #20c997, #198754);
+    }
+
+    .material a:hover {
+      opacity: 0.9;
+      transform: scale(1.03);
+    }
+
+    p.empty-text {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #444;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📚 Learning Materials</h1>
+    <nav>
+      <a href="/">Feed</a>
+      <a href="/jobs/">Jobs</a>
+      <a href="/logout/">Logout</a>
+    </nav>
+  </header>
+
+  <div class="feed">
+    {% for material in materials %}
+      <div class="material">
+        <h3>{{ material.title }}</h3>
+        <p>{{ material.description }}</p>
+        <a href="{{ material.link }}" target="_blank">View Material</a>
+        <a href="{% url 'save_material' material.id %}" class="save">💾 Save</a>
+      </div>
+    {% empty %}
+      <p class="empty-text">No materials yet 📖</p>
+    {% endfor %}
+  </div>
+</body>
+</html>

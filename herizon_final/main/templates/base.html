@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herizon 🌸</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/script.js' %}" defer></script>
+</head>
+<body>
+
+    <!-- Navbar/Header -->
+    <header>
+        <h1>💫 Herizon</h1>
+        <nav>
+            {% if user.is_authenticated %}
+                <a href="{% url 'feed' %}">Feed</a>
+                <a href="{% url 'jobs' %}">Jobs</a>
+                <a href="{% url 'materials' %}">Materials</a>
+                <a href="{% url 'create_post' %}">Create Post</a>
+                <a href="{% url 'profile' user.username %}">Profile</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'signup' %}">Signup</a>
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <!-- Hero section (optional, on homepage) -->
+    {% block hero %}{% endblock %}
+
+    <!-- Main content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer style="text-align:center; padding:20px; margin-top:40px; color:#666; font-size:0.9rem;">
+        🌸 Herizon – Women’s Job & Learning Network | Hackathon Project
+    </footer>
+
+</body>
+</html>

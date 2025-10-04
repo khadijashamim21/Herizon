@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ user_profile.user.username }} | Herizon Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="profile-page">
+
+  <header>
+    <h1>{{ user_profile.user.username }}’s Profile
+      {% if user_profile.verified %}
+        <span class="badge">🌸 Verified</span>
+      {% endif %}
+    </h1>
+    <nav>
+      <a href="/">Feed</a>
+      <a href="/jobs/">Jobs</a>
+      <a href="/materials/">Materials</a>
+      <a href="/logout/">Logout</a>
+    </nav>
+  </header>
+
+  <section class="profile-hero">
+    <div class="profile-card">
+      <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=800&q=80" alt="Profile Banner" class="banner-img">
+      <div class="profile-info">
+        <img src="{{ user_profile.profile_pic.url|default:'https://cdn-icons-png.flaticon.com/512/3177/3177440.png' }}" alt="Profile Picture" class="profile-pic">
+        <h2>@{{ user_profile.user.username }}</h2>
+        <p class="bio">{{ user_profile.bio|default:"No bio added yet 💬" }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="profile-details">
+    <div class="badges-section">
+      <h3>🏅 Badges</h3>
+      <div class="badges">
+        {% for badge in badges %}
+          <span class="badge">{{ badge.icon }} {{ badge.name }}</span>
+        {% empty %}
+          <p>No badges yet</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="posts-section">
+      <h3>📝 Posts</h3>
+      {% for post in posts %}
+        <div class="post">
+          <p>{{ post.content }}</p>
+          <small>{{ post.created_at|date:"M d, Y" }}</small>
+        </div>
+      {% empty %}
+        <p>No posts yet.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+</body>
+</html>

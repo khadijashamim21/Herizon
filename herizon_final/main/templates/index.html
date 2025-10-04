@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-container">
+    <div class="hero-text">
+      <h1>Welcome to <span class="highlight">Herizon</span> 🌸</h1>
+      <p>Your social platform empowering women through jobs, learning, and collaboration.</p>
+      <div class="hero-buttons">
+        <a href="{% url 'signup' %}" class="btn">Sign Up</a>
+        <a href="{% url 'login' %}" class="btn btn-outline">Log In</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://cdn.pixabay.com/photo/2021/02/08/12/28/woman-5994213_960_720.jpg" alt="Herizon Women Community">
+    </div>
+  </div>
+</section>
+{% endblock %}
